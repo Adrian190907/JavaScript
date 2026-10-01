@@ -15,10 +15,11 @@
 
 El repositorio está organizado por practicas donde se guardan todos los ejercicios:
 
-## 📂 [Práctica 2](practica2)
+### 📂 [Práctica 2](practica2)
+---
 * 📂 [Ejercicio 1](practica2/ejercicio1)
-    * <img src="https://githubusercontent.com" alt="HTML5" width="16" height="16"> [index.html](ejercicio1/index.html)
-    * <img src="https://githubusercontent.com" alt="JS" width="16" height="16"> [script.js](ejercicio1/script.js)
+    * 🌐 [index.html](practica2/ejercicio1/index.html)
+    * 🟨 [script.js](practica2/ejercicio1/script.js)
 * 📂 [Ejercicio 2](practica2/ejercicio2)
     * 🌐 [index.html](practica2/ejercicio2/index.html)
     * 🟨 [script.js](practica2/ejercicio2/script.js)
@@ -32,7 +33,7 @@ El repositorio está organizado por practicas donde se guardan todos los ejercic
     * 🌐 [index.html](practica2/ejercicio5/index.html)
     * 🟨 [script.js](practica2/ejercicio5/script.js)
 
----
+--- 
 
 ## 👤 Autor
 * **Nombre:** Adrián Moya Vilchez
