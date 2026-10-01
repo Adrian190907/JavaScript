@@ -33,6 +33,25 @@ El repositorio está organizado por practicas donde se guardan todos los ejercic
     * 🌐 [index.html](practica2/ejercicio5/index.html)
     * 🟨 [script.js](practica2/ejercicio5/script.js)
 
+---
+### 📂 [Práctica 3](practica3)
+---
+* 📂 [Ejercicio 1](practica3/ejercicio1)
+    * 🌐 [index.html](practica3/ejercicio1/index.html)
+    * 🟨 [script.js](practica3/ejercicio1/script.js)
+* 📂 [Ejercicio 2](practica3/ejercicio2)
+    * 🌐 [index.html](practica3/ejercicio2/index.html)
+    * 🟨 [script.js](practica3/ejercicio2/script.js)
+* 📂 [Ejercicio 3](practica3/ejercicio3)
+    * 🌐 [index.html](practica3/ejercicio3/index.html)
+    * 🟨 [script.js](practica3/ejercicio3/script.js)
+* 📂 [Ejercicio 4](practica3/ejercicio4)
+    * 🌐 [index.html](practica3/ejercicio4/index.html)
+    * 🟨 [script.js](practica3/ejercicio4/script.js)
+* 📂 [Ejercicio 5](practica3/ejercicio5)
+    * 🌐 [index.html](practica3/ejercicio5/index.html)
+    * 🟨 [script.js](practica3/ejercicio5/script.js)
+
 --- 
 
 ## 👤 Autor
