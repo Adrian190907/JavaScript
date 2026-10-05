@@ -1,14 +1,9 @@
-let edadInput = prompt("Introduce tu edad:");
-let notaInput = prompt("Introduce la nota media de tu expediente con tres decimales:");
-
-let edad = parseFloat(edadInput);
-let nota = parseFloat(notaInput);
+let edad = parseFloat(prompt("Introduce tu edad:"));
+let nota = parseFloat(prompt("Introduce la nota media de tu expediente con tres decimales:"));
 
 if (edad < 18 && nota < 0 || nota > 10){
 
-    console.log("Nota con dos decimales: " + parseFloat(notaInput).toFixed(2));
-
-    
+    console.log("Nota con dos decimales: " + nota.toFixed(2));
 
     let suma = edad + nota;
     let resta = edad - nota;

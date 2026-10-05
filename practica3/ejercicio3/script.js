@@ -1,5 +1,5 @@
 let opcion = prompt("Introduce una opción");
-console.log("1. Usuario principiante " + 
+alert("1. Usuario principiante " + 
             "2. Usuario intermedio" +
             "3. Usuario avanzado" +
             "4. Salir");

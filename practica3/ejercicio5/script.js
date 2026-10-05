@@ -11,5 +11,5 @@ while (numero >= 0) {
     }
 }
 
-let media = suma / contador;
+let media = suma / contador; 
 alert("Suma total: " + suma + "\nMedia: " + media);

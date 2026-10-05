@@ -4,11 +4,12 @@ let intento = 0;
 while (intento !== num) {
     intento = Number(prompt("Adivina el número del 1 al 10:"));
     
-    if (intento < num) {
-        alert("El número secreto es mayor");
-    } else if (intento > num) {
-        alert("El número secreto es menor");
-    }
+    if (intento < num) 
+        alert("El número es mayor");
+    else if (intento > num)
+        alert("El número es menor");
+    else
+        console.log("Acertase")
 }
 
-console.log("Acertase")
+

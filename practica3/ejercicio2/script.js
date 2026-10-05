@@ -9,4 +9,4 @@ if (Number.isFinite(num1) &&  Number.isFinite(num2) && num1 !== 0 && num2 !== 0)
     else 
         alert(num2 + " es mayor que " + num1)
 }else
-    console.log("Introduce un número válido")
+    alert("Introduce un número válido")
