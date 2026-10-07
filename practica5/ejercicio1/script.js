@@ -12,6 +12,9 @@ function cuentaPalabras(palabra){
     }
 
     alert("Veces que aparece " + palabra + ": " + contador);
+
+    // Sirve para escribir directamente en la página, el += sirve para añadir contenido ya q sino se soobrescriben
+    // document.body.innerHTML += "Veces que aparece " + palabra + ": " + contador
 }
 
 function masDeCuatroPalabras(){
