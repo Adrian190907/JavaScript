@@ -14,14 +14,26 @@ function comprobarNota(nota) {
 }
 
 function clasificarNota(nota) {
-    if (nota < 5) 
+    /*if (nota < 5) 
         return "Suspenso"
     else if (nota < 7) 
         return "Aprobado"
     else if (nota < 9) 
         return "Notable"
-    else 
+    else {
         return "Sobresaliente"
+    }*/
+
+    switch(nota){
+        case 0,1,2,3,4:
+            return "Suspenso"
+        case 5,6:
+            return "Aprobado"
+        case 7,8:
+            return "Notable"
+        case 9,10:
+            return "Sobresaliente"
+    }
 }
 
 function introducirNotas() {
@@ -36,10 +48,10 @@ function introducirNotas() {
         }
 
         if (nota === -1) 
-            negativo = true
+            negativo = true;
         else {
-            arrayNotas[i] = nota
-            alert("Nota " + nota + ": " + clasificarNota(nota))
+            arrayNotas[i] = nota;
+            alert("Nota " + nota + ": " + clasificarNota(nota));
         }
     }
 
@@ -49,9 +61,9 @@ function introducirNotas() {
 function calcularMedia(arrayNotas) {
     if (arrayNotas.length === 0) return null
 
-    let suma = 0
-    for (const nota of arrayNotas) {
-        suma += nota
+    let suma = 0;
+    for (let nota of arrayNotas) {
+        suma += nota;
     }
 
     return suma / arrayNotas.length
