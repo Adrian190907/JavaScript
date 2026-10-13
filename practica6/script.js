@@ -32,10 +32,6 @@ class Libro {
     }
 }
 
-let libro = new Libro("Titulo","Autor",30);
-libro.describir();
-console.log(libro);
-
 class Catalogo {
     constructor(...libros) {
         this.libros = libros;
@@ -48,9 +44,41 @@ class Catalogo {
     eliminarLibroPorTitulo(titulo) {
         this.libros = this.libros.filter(libro => libro.titulo !== titulo);
     }
+
+    consultarLibroPorTitulo(titulo) {
+        return this.libros.find(libro => libro.titulo === titulo);
+    }
+
+    listarLibros() {
+        if (this.libros.length === 0) {
+            document.body.innerHTML += "<p>No hay nada en el catalogo</p>";
+        } else {
+            this.libros.forEach(libro => {
+                libro.describir();
+            });
+        }
+    }
 }
 
-let libros = [];
-let catalogo = new Catalogo(libros);
-catalogo.añadirLibro(libro)
-console.log(catalogo.libros);
+let libro1 = new Libro ("Harry Potter", "J.K. Rowling", 299);
+let libro2 = new Libro ("Jeronimo Stilton", "Neron Vale", 300);
+let libro3 = new Libro("La Ciudad de las Almas Huecas", "Sabela Miro", 300);
+
+libro1.describir();
+console.log("¿libro1 es extenso?:", libro1.esExtenso());
+console.log("¿libro2 es extenso?:", libro2.esExtenso());
+
+let catalogo = new Catalogo();
+
+catalogo.añadirLibro(libro1);
+catalogo.añadirLibro(libro2);
+catalogo.añadirLibro(libro3);
+catalogo.añadirLibro(libro1); 
+
+console.log("Buscar Harry Potter:", catalogo.consultarLibroPorTitulo("Harry Potter"));
+catalogo.eliminarLibroPorTitulo("Harry Potter");
+console.log("Buscar Harry Potter despues de eliminarlo:", catalogo.consultarLibroPorTitulo("Harry Potter"));
+
+console.log("Buscar Jeronimo Stilton:", catalogo.consultarLibroPorTitulo("Jeronimo Stilton"));ç
+
+catalogo.listarLibros();
