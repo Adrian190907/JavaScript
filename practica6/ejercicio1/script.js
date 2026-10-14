@@ -18,7 +18,7 @@ class Libro {
     }
 
     describir() {
-        document.body.innerHTML = ("<h1>" + this.titulo + "</h1>");
+        document.body.innerHTML += ("<h1>" + this.titulo + "</h1>");
         document.body.innerHTML += ("<p>" + this.autor + "</p>");
         document.body.innerHTML += ("<p>" + this.numPag + "</p>");
     }
@@ -37,12 +37,19 @@ class Catalogo {
         this.libros = libros;
     }
 
+    existe(libro){
+        return this.libros.some(libros => libros.titulo.toLowerCase() === libro.titulo.toLowerCase());
+    }
+
     añadirLibro(libro) {
-        this.libros.push(libro);
+        if(!this.existe(libro))
+            this.libros.push(libro);
+        else
+            console.error("No se ha agregado el libro porque ya existe");
     }
 
     eliminarLibroPorTitulo(titulo) {
-        this.libros = this.libros.filter(libro => libro.titulo !== titulo);
+        this.libros = this.libros.filter(libro => libro.titulo.toLowerCase() !== titulo.toLowerCase());
     }
 
     consultarLibroPorTitulo(titulo) {
@@ -65,8 +72,8 @@ let libro2 = new Libro ("Jeronimo Stilton", "Neron Vale", 300);
 let libro3 = new Libro("La Ciudad de las Almas Huecas", "Sabela Miro", 300);
 
 libro1.describir();
-console.log("¿libro1 es extenso?:", libro1.esExtenso());
-console.log("¿libro2 es extenso?:", libro2.esExtenso());
+console.log("¿libro1 es extenso?:" + libro1.esExtenso());
+console.log("¿libro2 es extenso?:" + libro2.esExtenso());
 
 let catalogo = new Catalogo();
 
@@ -75,10 +82,10 @@ catalogo.añadirLibro(libro2);
 catalogo.añadirLibro(libro3);
 catalogo.añadirLibro(libro1); 
 
-console.log("Buscar Harry Potter:", catalogo.consultarLibroPorTitulo("Harry Potter"));
+console.log("Buscar Harry Potter:" + catalogo.consultarLibroPorTitulo("Harry Potter"));
 catalogo.eliminarLibroPorTitulo("Harry Potter");
-console.log("Buscar Harry Potter despues de eliminarlo:", catalogo.consultarLibroPorTitulo("Harry Potter"));
+console.log("Buscar Harry Potter despues de eliminarlo:" + catalogo.consultarLibroPorTitulo("Harry Potter"));
 
-console.log("Buscar Jeronimo Stilton:", catalogo.consultarLibroPorTitulo("Jeronimo Stilton"));ç
+console.log("Buscar Jeronimo Stilton:" + catalogo.consultarLibroPorTitulo("Jeronimo Stilton"));
 
 catalogo.listarLibros();
