@@ -41,9 +41,10 @@ document.body.innerHTML += "<pre>" + texto + "</pre>"
 
 const nuevoObjeto = JSON.parse(texto);
 
-console.log("Ficha recuperada: " + nuevoObjeto);
+console.log("Ficha recuperada: ", nuevoObjeto);
 
-console.log("¿Incluye imagen? :" + nuevoObjeto.image);
+console.log("¿Incluye imagen? :", ("image" in nuevoObjeto));
+
 
 
 
