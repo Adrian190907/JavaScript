@@ -1,69 +1,76 @@
-const urlListaPokemon = "https://pokeapi.co";
-
-function esperar(ms) {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve("Cargando...");
-        }, ms);
-    });
-}
+const urlPokemons = "https://pokeapi.co/api/v2/pokemon?limit=5";
+const urlPikachu = "https://pokeapi.co/api/v2/pokemon/pikachu";
 
 function obtenerDatos(url) {
-    return fetch(url)
-        .then(respuesta => {
-            if (!respuesta.ok) {
-                throw new Error(`Error HTTP: ${respuesta.status}`);
-            }
-            return respuesta.json();
-        })
-        .then(datos => {
-            // ¡CORREGIDO! 'results' es un array, necesitas [0] para el primer Pokémon
-            const urlPrimerPokemon = datos.results[0].url; 
-            return fetch(urlPrimerPokemon);
-        })
-        .then(respuesta => {
-            if (!respuesta.ok) {
-                throw new Error(`Error HTTP: ${respuesta.status}`);
-            }
-            return respuesta.json();
-        });
-}
 
-function mostrarPokemon(pokemon) {
-    const nombre = pokemon.name;
-    const id = pokemon.id;
-    // ¡CORREGIDO! 'types' es un array, necesitas [0] para el primer tipo
-    const tipo = pokemon.types[0].type.name; 
-    const imagen = pokemon.sprites.front_default; 
+  return fetch(url)
+    .then((respuesta) => {
 
-    document.body.innerHTML = `
-        <div class="tarjeta-pokemon">
-            <h1>Detalle de Pokémon</h1>
-            <img src="${imagen}" alt="${nombre}">
-            <h2>${nombre}</h2>
-            <p>Id: ${id}</p>
-            <p>Tipo: ${tipo}</p>
-        </div>
-    `;
-}
+        if (!respuesta.ok) {
+            throw new Error(`Error HTTP: ${respuesta.status}`);
+        }
 
-document.body.innerHTML = "<h1>Cargando...</h1>";
-
-esperar(5000)
-    .then(() => {
-        return obtenerDatos(urlListaPokemon);
-    })
-    .then(pokemon => {
-        mostrarPokemon(pokemon);
-    })
-    .catch(error => {
-        console.error("Error detectado:", error.message);
-        document.body.innerHTML = `<h1>Ha ocurrido un error: ${error.message}</h1>`;
-    })
-    .finally(() => {
-        console.log("La petición a la API ha terminado.");
+        return respuesta.json();
     });
+}
 
+function mostrarPokemon(url) {
+  return fetch(url)
+    .then((respuesta) => {
 
+        if (!respuesta.ok) {
+            throw new Error(`Error HTTP: ${respuesta.status}`);
+        }
 
+        return respuesta.json();
+    })
+    .then((pokemon) => {
+        console.log("Nombre: ", pokemon.name);
+        console.log("Id: ", pokemon.id);
+        console.log("Primer tipo: ", pokemon.types[0].type.name);
+        console.log("Url imagen: ", pokemon.sprites.front_default);
 
+        document.body.innerHTML = `
+          <h1>Pokedex</h1>
+          <div>
+            <h2>${pokemon.name}</h2>
+            <p>Id: ${pokemon.id}</p>
+            <p>Primer tipo: ${pokemon.types[0].type.name}</p>
+            <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+          </div>
+        `;
+    });
+}
+
+function esperar(ms) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Cargando Pikachu...");
+    }, ms);
+  });
+}
+
+document.body.innerHTML = "<h1>Pokedex</h1><p>Cargando...</p>";
+
+obtenerDatos(urlPokemons)
+
+    .then((listaPokemons) => {
+
+        console.log("Lista de Pokémons: ", listaPokemons);
+        console.log("Tipo de dato: ", typeof listaPokemons);
+        console.log("Pokemons: ", listaPokemons.results);
+        return mostrarPokemon(listaPokemons.results[0].url);
+
+  }).then(() => {
+
+        document.body.innerHTML += `<p>Cargando pikachu..</p>`;
+        return esperar(5000);
+
+  }).then(() => mostrarPokemon(urlPikachu))
+    .catch((error) => {
+
+        console.error("Error", error.message);
+        document.body.innerHTML = `<h1>Pokedex </h1>
+        <p>No se pudo cargar el Pokémon: ${error.message}</p>`;
+
+  }).finally(() => console.log("Petición terminada"));
