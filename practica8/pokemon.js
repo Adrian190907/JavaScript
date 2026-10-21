@@ -1,61 +1,68 @@
-const urlListaPokemon = "https://pokeapi.co/api/v2/pokemon?limit=5";
-const urlDetallePokemon = "https://pokeapi.co/api/v2/pokemon/pikachu";
+const urlListaPokemon = "https://pokeapi.co";
 
-const respuesta1 = fetch(urlListaPokemon);
-const respuesta2 = fetch(urlDetallePokemon);
-
-
-respuesta1
-    .then(respuesta => {
-        if (!respuesta.ok) 
-            throw new Error(`Error HTTP: ${respuesta.status}`);
-
-        return respuesta.json();
-    })
-    .then(pokemon => {
-
-        console.log("Objeto pokemon: ", pokemon);
-        console.log("Tipo de dato: ", typeof pokemon);
-        console.log("Pokemons: ", pokemon.results);
-        mostrarNombres(pokemon);
-
-    })
-    .catch(error => {
-
-        console.error("Error", error.message);
-
+function esperar(ms) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve("Cargando...");
+        }, ms);
     });
-
-function mostrarNombres(respuesta1){
-    const pokemons = respuesta1.results
-    .map(results => `<li>${results.name + " url: " + results.url }</li>`)
-    .join("");
-
-
-  document.body.innerHTML = `
-    <h1>Catálogo de Pokémon</h1>
-    <article>
-      <h2>Lista de Pokémon</h2>
-      <ul>${pokemons}</ul>
-
-    </article>
-  `;
 }
 
+function obtenerDatos(url) {
+    return fetch(url)
+        .then(respuesta => {
+            if (!respuesta.ok) {
+                throw new Error(`Error HTTP: ${respuesta.status}`);
+            }
+            return respuesta.json();
+        })
+        .then(datos => {
+            // ¡CORREGIDO! 'results' es un array, necesitas [0] para el primer Pokémon
+            const urlPrimerPokemon = datos.results[0].url; 
+            return fetch(urlPrimerPokemon);
+        })
+        .then(respuesta => {
+            if (!respuesta.ok) {
+                throw new Error(`Error HTTP: ${respuesta.status}`);
+            }
+            return respuesta.json();
+        });
+}
 
-respuesta2
-    .then(respuesta => {
-        if (!respuesta.ok) 
-            throw new Error(`Error HTTP: ${respuesta.status}`);
+function mostrarPokemon(pokemon) {
+    const nombre = pokemon.name;
+    const id = pokemon.id;
+    // ¡CORREGIDO! 'types' es un array, necesitas [0] para el primer tipo
+    const tipo = pokemon.types[0].type.name; 
+    const imagen = pokemon.sprites.front_default; 
 
-        return respuesta.json();
+    document.body.innerHTML = `
+        <div class="tarjeta-pokemon">
+            <h1>Detalle de Pokémon</h1>
+            <img src="${imagen}" alt="${nombre}">
+            <h2>${nombre}</h2>
+            <p>Id: ${id}</p>
+            <p>Tipo: ${tipo}</p>
+        </div>
+    `;
+}
+
+document.body.innerHTML = "<h1>Cargando...</h1>";
+
+esperar(5000)
+    .then(() => {
+        return obtenerDatos(urlListaPokemon);
     })
     .then(pokemon => {
-        console.log("Nombre: ", pokemon.name)
-        console.log("Numero: ", pokemon.id)
-        console.log("Primer tipo: ", pokemon.types[0].type.name)
-        console.log("Url imagen: ", pokemon.species.url)
+        mostrarPokemon(pokemon);
     })
+    .catch(error => {
+        console.error("Error detectado:", error.message);
+        document.body.innerHTML = `<h1>Ha ocurrido un error: ${error.message}</h1>`;
+    })
+    .finally(() => {
+        console.log("La petición a la API ha terminado.");
+    });
 
 
 
